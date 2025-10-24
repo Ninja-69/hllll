@@ -53,30 +53,21 @@ export async function signIn(email: string, password: string): Promise<AuthRespo
   }
   
   try {
-    const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-      },
-      body: JSON.stringify({ email, password }),
+    const { createClient } = await import("@supabase/supabase-js")
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     })
 
-    const data = await response.json()
-
-    if (!response.ok) {
-      return { user: null, session: null, error: data.error_description || "Sign in failed" }
-    }
-
-    // Store tokens in localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem("supabase_access_token", data.access_token)
-      localStorage.setItem("supabase_refresh_token", data.refresh_token)
+    if (error) {
+      return { user: null, session: null, error: error.message }
     }
 
     return {
       user: data.user,
-      session: { access_token: data.access_token, refresh_token: data.refresh_token },
+      session: data.session,
       error: null,
     }
   } catch (error) {
