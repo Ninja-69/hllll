@@ -24,6 +24,10 @@ cp .env.example .env.local
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 - `FOOD_ANALYSIS_API_URL`: Backend API URL for food analysis
 
+https://cxcfdcdltgiagtgqonut.supabase.co
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN4Y2ZkY2RsdGdpYWd0Z3FvbnV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyODk0NTMsImV4cCI6MjA3Njg2NTQ1M30.DoDfnD-yq3JazeY0oPecoNMpBL1HQFOAy6kV-CqiRoY
 ### Optional Environment Variables
 
 - `NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL`: Redirect URL for email confirmation (development only)
@@ -86,4 +90,5 @@ This app uses Supabase as the backend. You'll need to:
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
 - **Authentication**: Supabase Auth
+
 - **Deployment**: Vercel
