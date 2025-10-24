@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { signIn } from "@/lib/auth"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -24,9 +24,13 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const { error, session } = await signIn(email, password)
-      if (error) throw new Error(error)
-      if (session) {
+      const supabase = createClient()
+      const { error, data } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      if (error) throw error
+      if (data.session) {
         router.push("/")
       }
     } catch (error: unknown) {

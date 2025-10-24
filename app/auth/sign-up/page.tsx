@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { signUp } from "@/lib/auth"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -42,8 +42,15 @@ export default function SignUpPage() {
     }
 
     try {
-      const { error: signUpError } = await signUp(email, password)
-      if (signUpError) throw new Error(signUpError)
+      const supabase = createClient()
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/confirm`,
+        },
+      })
+      if (signUpError) throw signUpError
 
       const deviceId = getDeviceId()
       await fetch("/api/trial/log-device", {
