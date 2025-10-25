@@ -19,6 +19,20 @@ export default async function Page() {
   // Fetch user goals
   const { data: goals } = await supabase.from("goals").select("*").eq("user_id", user.id).single()
 
+  // Create profile and goals if they don't exist (for existing users)
+  if (!profile) {
+    await supabase.from("profiles").insert({
+      id: user.id,
+      email: user.email || "",
+    }).select().single()
+  }
+
+  if (!goals) {
+    await supabase.from("goals").insert({
+      user_id: user.id,
+    }).select().single()
+  }
+
   // Fetch today's meals
   const today = new Date().toISOString().split("T")[0]
   const { data: meals } = await supabase
