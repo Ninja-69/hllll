@@ -86,5 +86,13 @@ This app uses Supabase as the backend. You'll need to:
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
 - **Authentication**: Supabase Auth
-
+AIzaSyDr6rCHeE2HzGIbZ6LSM7J494T6n_kVI00
 - **Deployment**: Vercel
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N0bXRndGlrcHVoaWV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MDk0NDYsImV4cCI6MjA3Njk4NTQ0Nn0.jqBR5gA6ouwZxIeeVwkUleWc1WiGOo5PNZz0W6RTjIk
+
+
+
+https://qfyregstmtgtikpuhiey.supabase.co
+
+ 
