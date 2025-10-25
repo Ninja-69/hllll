@@ -1,4 +1,4 @@
-# NutriTrack - Nutrition Tracking App
+h# NutriTrack - Nutrition Tracking App
 
 A Next.js application for tracking nutrition with AI-powered food analysis.
 
@@ -86,4 +86,5 @@ This app uses Supabase as the backend. You'll need to:
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI
 - **Authentication**: Supabase Auth
+
 - **Deployment**: Vercel
