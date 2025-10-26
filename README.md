@@ -4,7 +4,20 @@ https://qfyregstmtgtikpuhiey.supabase.co
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N0bXRndGlrcHVoaWV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MDk0NDYsImV4cCI6MjA3Njk4NTQ0Nn0.jqBR5gA6ouwZxIeeVwkUleWc1WiGOo5PNZz0W6RTjIk
 
 
+1. User Authentication & Session ManagementUse Supabase Auth for user signup/signin with email/password or OAuth.Store user JWT tokens on frontend after login for authenticated API requests.2. Persistent User Data StorageDefine database schemas and tables to store user-specific data:User Profiles: Store user details (id, name, email, avatar, etc.).User Streaks: Track daily or recurring engagement streaks (e.g., days active).Tasks & Progress: Store tasks assigned to users, completion status, timestamps, priority, etc.Chat History / Context: Optionally keep conversation logs or user context variables to personalize AI responses.3. API Authorization and Data AccessProtect all data operations with Row Level Security (RLS) to ensure users can only access their own data.Require every API request to Edge Function to send the user’s JWT token in the Authorization header.Edge Function verifies the JWT token and denies unauthorized requests.4. AI API Integration with ContextOn each AI chat request, fetch the relevant user context data (like streaks, completed tasks) from database to enrich the prompt.Keep AI API keys only in backend secrets and call AI APIs within Edge Function.5. API Request FormatFrontend sends POST request to Edge Function with headers:Content-Type: application/jsonAuthorization: Bearer <jwt_token>Request body includes:{
+  "prompt": "User's query here",
+  "userContext": {
+    "name": "Story context or name",
+    "age": 15,
+    "weight": 60,
+    "streak": 5,
+    "tasksCompleted": ["task1", "task3"],
+    "...": "other relevant fields"
+  }
+}
 
+
+6. Backend FlowValidate JWT token.Retrieve and merge stored user context or state.Construct prompt combining user input and stored context.Call AI APIs using backend secrets.Return AI response to frontend.7. Data UpdatesProvide backend APIs or Edge Function routes to update user data (e.g., streak increments, marking tasks complete).Enforce RLS and auth on these endpoints.8. Frontend UX Guidelines (Optional)After user login, fetch user state and sync with backend.Update streaks/tasks locally and push updates to backend.Display chat replies dynamically with updated personalized context.
 Send a POST request to the URL:
 https://qfyregstmtgtikpuhiey.supabase.co/functions/v1/clever-handlerSet Request Headers:Content-Type: application/jsonSet Request Body JSON:
 Always send a JSON object containing these mandatory fields:"prompt": A string containing the user's question or message."userContext": An object containing user details like:{
@@ -136,6 +149,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N
 https://qfyregstmtgtikpuhiey.supabase.co
 
  
+
 
 
 
