@@ -29,6 +29,18 @@ A Next.js application for tracking nutrition with AI-powered food analysis.
 
 
 
+I have a backend AI chat service deployed as a Supabase Edge Function.The endpoint URL is:
+https://qfyregstmtgtikpuhiey.supabase.co/functions/v1/clever-handlerThis backend accepts HTTP POST requests with JSON body.The JSON body must contain two fields:"prompt" — a string containing the user’s current message or question."userContext" — an object containing mandatory user data such as:name (string)age (number)weight (number)Plus any additional relevant attributes.Example request body:{
+  "prompt": "How can I grow taller?",
+  "userContext": {
+    "name": "Rahul",
+    "age": 15,
+    "weight": 60
+  }
+}The backend function automatically combines the prompt and full user context into a context-aware AI query and sends it to AI models (OpenRouter first, huggingface second if fallback needed).It returns a JSON response containing AI-generated chat replies.How to use this backend in chat generation:For every user input, construct a POST request with latest "prompt" (user message) and updated "userContext" (user details).Send the POST request to the above endpoint with header:
+Content-Type: application/jsonReceive the JSON response from the backend, extract the AI-generated message content from it (usually inside choices[0].message.content or equivalent).Display that extracted message as the AI’s reply in the chat interface.Maintain the user context updated on the client-side and send it every time along with the prompt for personalized conversations.
+
+Validate responses and handle errors gracefully, retry fallback if needed.The request format and required user context fields are mandatory; do not omit them.This setup enables rich, personalized AI chats tailored to user profiles.
 
 
     
@@ -124,5 +136,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N
 https://qfyregstmtgtikpuhiey.supabase.co
 
  
+
 
 
