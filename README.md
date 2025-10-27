@@ -1,59 +1,13 @@
-https://qfyregstmtgtikpuhiey.supabase.co
 
+
+
+
+
+heres the issues. fix them
+the ui is messed for mobile.
+like all the texts and everything is going out of screen and out of the box or the space for the text. for example the the welcome component in the main dashboard is messed up like the ui/boxes of 
 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N0bXRndGlrcHVoaWV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0MDk0NDYsImV4cCI6MjA3Njk4NTQ0Nn0.jqBR5gA6ouwZxIeeVwkUleWc1WiGOo5PNZz0W6RTjIk
-
-
-1. User Authentication & Session ManagementUse Supabase Auth for user signup/signin with email/password or OAuth.Store user JWT tokens on frontend after login for authenticated API requests.2. Persistent User Data StorageDefine database schemas and tables to store user-specific data:User Profiles: Store user details (id, name, email, avatar, etc.).User Streaks: Track daily or recurring engagement streaks (e.g., days active).Tasks & Progress: Store tasks assigned to users, completion status, timestamps, priority, etc.Chat History / Context: Optionally keep conversation logs or user context variables to personalize AI responses.3. API Authorization and Data AccessProtect all data operations with Row Level Security (RLS) to ensure users can only access their own data.Require every API request to Edge Function to send the user’s JWT token in the Authorization header.Edge Function verifies the JWT token and denies unauthorized requests.4. AI API Integration with ContextOn each AI chat request, fetch the relevant user context data (like streaks, completed tasks) from database to enrich the prompt.Keep AI API keys only in backend secrets and call AI APIs within Edge Function.5. API Request FormatFrontend sends POST request to Edge Function with headers:Content-Type: application/jsonAuthorization: Bearer <jwt_token>Request body includes:{
-  "prompt": "User's query here",
-  "userContext": {
-    "name": "Story context or name",
-    "age": 15,
-    "weight": 60,
-    "streak": 5,
-    "tasksCompleted": ["task1", "task3"],
-    "...": "other relevant fields"
-  }
-}
-
-
-6. Backend FlowValidate JWT token.Retrieve and merge stored user context or state.Construct prompt combining user input and stored context.Call AI APIs using backend secrets.Return AI response to frontend.7. Data UpdatesProvide backend APIs or Edge Function routes to update user data (e.g., streak increments, marking tasks complete).Enforce RLS and auth on these endpoints.8. Frontend UX Guidelines (Optional)After user login, fetch user state and sync with backend.Update streaks/tasks locally and push updates to backend.Display chat replies dynamically with updated personalized context.
-Send a POST request to the URL:
-https://qfyregstmtgtikpuhiey.supabase.co/functions/v1/clever-handlerSet Request Headers:Content-Type: application/jsonSet Request Body JSON:
-Always send a JSON object containing these mandatory fields:"prompt": A string containing the user's question or message."userContext": An object containing user details like:{
-  "name": "User's Name",
-  "age": User's age as number,
-  "weight": User's weight as number,
-  // Add other relevant user attributes here
-}Format of the body example:{
-  "prompt": "How can I improve my height?",
-  "userContext": {
-    "name": "Rahul",
-    "age": 15,
-    "weight": 60
-  }
-}How to process response:The endpoint returns AI-generated content in JSON format.Extract the generated answer (usually inside choices[0].message.content or similar).Display that extracted text in the chat section as the AI’s reply.User interaction cycle:For every user message, build the JSON body with current prompt and latest updated user context.POST it to the endpoint and update chat UI with AI response.Maintain full user context on frontend or backend to continuously personalize prompts.
-
-h# NutriTrack - Nutrition Tracking App
-
-A Next.js application for tracking nutrition with AI-powered food analysis.
-
-## Features
-
-
-
-I have a backend AI chat service deployed as a Supabase Edge Function.The endpoint URL is:
-https://qfyregstmtgtikpuhiey.supabase.co/functions/v1/clever-handlerThis backend accepts HTTP POST requests with JSON body.The JSON body must contain two fields:"prompt" — a string containing the user’s current message or question."userContext" — an object containing mandatory user data such as:name (string)age (number)weight (number)Plus any additional relevant attributes.Example request body:{
-  "prompt": "How can I grow taller?",
-  "userContext": {
-    "name": "Rahul",
-    "age": 15,
-    "weight": 60
-  }
-}The backend function automatically combines the prompt and full user context into a context-aware AI query and sends it to AI models (OpenRouter first, huggingface second if fallback needed).It returns a JSON response containing AI-generated chat replies.How to use this backend in chat generation:For every user input, construct a POST request with latest "prompt" (user message) and updated "userContext" (user details).Send the POST request to the above endpoint with header:
-Content-Type: application/jsonReceive the JSON response from the backend, extract the AI-generated message content from it (usually inside choices[0].message.content or equivalent).Display that extracted message as the AI’s reply in the chat interface.Maintain the user context updated on the client-side and send it every time along with the prompt for personalized conversations.
-
-Validate responses and handle errors gracefully, retry fallback if needed.The request format and required user context fields are mandatory; do not omit them.This setup enables rich, personalized AI chats tailored to user profiles.
 
 
     
@@ -149,6 +103,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmeXJlZ3N
 https://qfyregstmtgtikpuhiey.supabase.co
 
  
+
 
 
 
